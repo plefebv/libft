@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 16:33:02 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/03/21 20:44:02 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/07/06 01:23:45 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int		ft_strcmp(const char *s1, const char *s2)
 {
-	return (ft_memcmp(s1, s2, ft_strlen(s1) + ft_strlen(s2)));
+	int		i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

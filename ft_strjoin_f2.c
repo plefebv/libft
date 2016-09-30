@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_f2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 17:38:06 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/09/08 19:33:37 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/09/25 18:30:07 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_f2(char const *s1, char const *s2)
 {
 	char	*s3;
 	int		len;
@@ -33,6 +33,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		while (s2[j] != '\0')
 			s3[i++] = s2[j++];
 		s3[i] = '\0';
+		ft_memdel((void **)&s2);
 		return (s3);
 	}
 	else

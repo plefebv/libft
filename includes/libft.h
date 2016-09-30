@@ -6,13 +6,14 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 14:49:09 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/04/29 00:26:01 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/09/25 18:53:23 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../../../includes/ft_printf.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -40,6 +41,9 @@ char				*ft_itoa(int n);
 int					ft_atoi(const char *str);
 char				*ft_strtrim(char const *s);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_f1(char const *s1, char const *s2);
+char				*ft_strjoin_f2(char const *s1, char const *s2);
+char				*ft_strjoin_f(char const *s1, char const *s2);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
@@ -77,7 +81,9 @@ char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strdup(const char *s);
+char				*ft_strdup_f(const char *s);
 char				*ft_strndup(const char *s, size_t n);
+char				*ft_strtolower(char *s);
 size_t				ft_strlen(const char *s);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putstr(char const *s);

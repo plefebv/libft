@@ -6,8 +6,8 @@
 #    By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 10:45:45 by plefebvr          #+#    #+#              #
-#    Updated: 2016/04/29 00:20:01 by plefebvr         ###   ########.fr        #
-#                                                                              #
+#    Updated: 2016/09/25 18:53:36 by plefebvr         ###   ########.fr        #
+
 # **************************************************************************** #
 
 NAME = libft.a
@@ -39,6 +39,9 @@ SRC =	ft_isprint.c \
 		ft_putendl_fd.c \
 		ft_strclr.c \
 		ft_strjoin.c \
+		ft_strjoin_f1.c \
+		ft_strjoin_f2.c \
+		ft_strjoin_f.c \
 		ft_strnequ.c \
 		ft_tolower.c \
 		ft_isalnum.c \
@@ -73,23 +76,45 @@ SRC =	ft_isprint.c \
 		ft_strsplit.c \
 		ft_nbrendl.c \
 		ft_strndup.c \
-		ft_checkchar.c
-OBJ =	$(SRC:.c=.o)
+		ft_checkchar.c \
+		ft_strtolower.c \
+		ft_strdup_f.c
+OBJ =	$(SRC:.c=.o)	
 HEADER = includes/libft.h
 FLAG = -Wall -Wextra -Werror
+
+CYN = tput bold ; tput setaf 6
+BLU = tput bold ; tput setaf 4
+GRN = tput bold ; tput setaf 2
+YLW = tput bold ; tput setaf 3
+RESET = tput sgr 0
+
 all: $(NAME)
 
 $(NAME) :
-	/usr/bin/gcc $(FLAG) -c $(SRC) -I $(HEADER)
-	/usr/bin/ar rc libft.a $(OBJ)
-	/usr/bin/ranlib libft.a
+	@$(CYN)
+	@echo " === Libft Compilation Beggining ===\n"
+	@$(BLU)
+	@echo "	Create Libft objects"
+	@gcc $(FLAG) -c $(SRC) -I $(HEADER)
+	@echo "	Create libft.a\n"
+	@/usr/bin/ar rc $(NAME) $(OBJ)
+	@/usr/bin/ranlib $(NAME)
+	@$(CYN)
+	@echo " === Start Libft Compilation ==="
+	@$(RESET)
 
 clean:
-	/bin/rm -f $(OBJ)
+	@/bin/rm -f $(OBJ)
+	@$(BLU)
+	@echo "	Clean Libft objects Done !"
+	@$(RESET)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@$(BLU)
+	@echo "	Clean Libft libft.a Done !"
+	@$(RESET)
 
 
-re: fclean 
-	make
+re: fclean all

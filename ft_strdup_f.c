@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup_f.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 17:38:06 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/09/08 19:33:37 by plefebvr         ###   ########.fr       */
+/*   Created: 2015/11/24 16:17:43 by plefebvr          #+#    #+#             */
+/*   Updated: 2016/09/27 15:02:25 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char		*ft_strdup_f(const char *s)
 {
-	char	*s3;
-	int		len;
 	int		i;
 	int		j;
+	char	*str;
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(*s3) * (len + 1));
-	if (s3)
-	{
-		while (s1[i] != '\0')
-		{
-			s3[i] = s1[i];
-			i++;
-		}
-		while (s2[j] != '\0')
-			s3[i++] = s2[j++];
-		s3[i] = '\0';
-		return (s3);
-	}
-	else
+	while (s[i] != '\0')
+		i++;
+	str = (char *)ft_memalloc(sizeof(*str) * (i + 1));
+	if (str == NULL)
 		return (NULL);
+	while (j < i)
+	{
+		str[j] = s[j];
+		j++;
+	}
+	str[j] = '\0';
+	ft_memdel((void **)&s);
+	s = NULL;
+	return (str);
 }
