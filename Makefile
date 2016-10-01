@@ -6,11 +6,11 @@
 #    By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 10:45:45 by plefebvr          #+#    #+#              #
-#    Updated: 2016/09/25 18:53:36 by plefebvr         ###   ########.fr        #
-
+#    Updated: 2016/10/01 18:57:20 by plefebvr         ###   ########.fr        #
 # **************************************************************************** #
 
 NAME = libft.a
+
 SRC =	ft_isprint.c \
 		ft_memalloc.c \
 		ft_putchar.c \
@@ -78,7 +78,33 @@ SRC =	ft_isprint.c \
 		ft_strndup.c \
 		ft_checkchar.c \
 		ft_strtolower.c \
-		ft_strdup_f.c
+		ft_strdup_f.c \
+		get_next_line.c \
+		ft_printf.c \
+		pf_lst_utils.c \
+		pf_first_utils.c\
+		pf_flag.c \
+		pf_parse.c \
+		pf_init.c \
+		pf_work.c \
+		pf_dioux.c \
+		pf_itoa_ll.c \
+		pf_add_sign.c \
+		pf_parse_letter.c \
+		pf_precision_dioux.c \
+		pf_minfield.c \
+		pf_di.c \
+		pf_u.c \
+		pf_sc.c \
+		pf_put_c.c \
+		pf_put_s.c \
+		pf_nbrlen_str.c \
+		pf_spe.c \
+		pf_null.c \
+		pf_hex.c \
+		pf_octal.c \
+		pf_precision_s.c
+
 OBJ =	$(SRC:.c=.o)	
 HEADER = includes/libft.h
 FLAG = -Wall -Wextra -Werror
