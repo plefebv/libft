@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/23 15:16:17 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			percentage(t_pffo *pffo, int *i, char c)
 	{
 		*i += 1;
 		if (pffo->minfield)
-			pf_put_in_lst(&pffo[0], ft_strdup(""));
+			pf_put_in_pst(&pffo[0], ft_strdup(""));
 	}
 	else
 		(*i)++;

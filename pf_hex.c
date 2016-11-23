@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 14:16:04 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ static char			*pf_itoa_hex(unsigned long long n, t_pffo *pffo)
 static void			pf_hex_length(void *ap, t_pffo *pffo)
 {
 	if (ft_strcmp("hh", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((unsigned char)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((unsigned char)ap, pffo));
 	if (ft_strcmp("h", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((unsigned short)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((unsigned short)ap, pffo));
 	if (ft_strcmp("l", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((unsigned long)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((unsigned long)ap, pffo));
 	if (ft_strcmp("ll", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((unsigned long long)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((unsigned long long)ap, pffo));
 	if (ft_strcmp("j", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((uintmax_t)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((uintmax_t)ap, pffo));
 	if (ft_strcmp("z", pffo->length) == 0)
-		pf_put_in_lst(pffo, pf_itoa_hex((size_t)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((size_t)ap, pffo));
 }
 
 void				pf_hex(void *ap, t_pffo *pffo)
@@ -87,19 +87,19 @@ void				pf_hex(void *ap, t_pffo *pffo)
 	if (pffo->letter == 'p')
 		pffo->length = ft_strdup("j");
 	pffo->length ? pf_hex_length(ap, pffo) :
-		pf_put_in_lst(pffo, pf_itoa_hex((unsigned)ap, pffo));
+		pf_put_in_pst(pffo, pf_itoa_hex((unsigned)ap, pffo));
 	pf_hex2(ap, pffo);
-	if (pffo->flags && ft_strchr(pffo->flags, '#') && pffo->lst->data
-				&& ft_strlen(pffo->lst->data) > 1 && pffo->lst->data[0] != ' ')
+	if (pffo->flags && ft_strchr(pffo->flags, '#') && pffo->pst->data
+				&& ft_strlen(pffo->pst->data) > 1 && pffo->pst->data[0] != ' ')
 	{
-		pffo->lst->data[1] = pffo->letter == 'X' ? 'X' : 'x';
-		while (pffo->lst->data[i] != '\0'
-				&& pffo->lst->data[i] != (pffo->letter == 'X' ? 'X' : 'x'))
+		pffo->pst->data[1] = pffo->letter == 'X' ? 'X' : 'x';
+		while (pffo->pst->data[i] != '\0'
+				&& pffo->pst->data[i] != (pffo->letter == 'X' ? 'X' : 'x'))
 			i++;
-		if (pffo->lst->data[i] == 'X' || pffo->lst->data[i] == 'x')
-			pffo->lst->data[i] = '0';
+		if (pffo->pst->data[i] == 'X' || pffo->pst->data[i] == 'x')
+			pffo->pst->data[i] = '0';
 	}
 	if (pffo->true_precision && !pffo->precision && pffo->minfield == 0
 			&& (unsigned)ap == 0 && pffo->letter != 'p')
-		pffo->lst->data[0] = '\0';
+		pffo->pst->data[0] = '\0';
 }

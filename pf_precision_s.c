@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 11:35:50 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void		pf_precision_s(t_pffo *pffo)
 	if (pffo->true_precision && pffo->precision >= 0)
 	{
 		str = ft_strnew(pffo->precision + 1);
-		while (pffo->lst->data[i] != '\0' && i < pffo->precision)
+		while (pffo->pst->data[i] != '\0' && i < pffo->precision)
 		{
-			str[i] = pffo->lst->data[i];
+			str[i] = pffo->pst->data[i];
 			i++;
 		}
-		free(pffo->lst->data);
-		pffo->lst->data = str;
+		free(pffo->pst->data);
+		pffo->pst->data = str;
 	}
 }

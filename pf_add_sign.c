@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 13:14:57 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void		pf_add_space_diu(t_pffo *pffo)
 	int	i;
 
 	i = 0;
-	if (pffo->lst->data && pf_isupper0(pffo->lst->data[i]))
-		pffo->lst->data = ft_strjoin_f2(" ", pffo->lst->data);
+	if (pffo->pst->data && pf_isupper0(pffo->pst->data[i]))
+		pffo->pst->data = ft_strjoin_f2(" ", pffo->pst->data);
 	else
 	{
-		while (pffo->lst->data[i] && !(ft_isdigit(pffo->lst->data[i])))
+		while (pffo->pst->data[i] && !(ft_isdigit(pffo->pst->data[i])))
 			i++;
-		if (i > 0 && pffo->lst->data[i] && ft_isdigit(pffo->lst->data[i]))
-			pffo->lst->data[i - 1] = ' ';
+		if (i > 0 && pffo->pst->data[i] && ft_isdigit(pffo->pst->data[i]))
+			pffo->pst->data[i - 1] = ' ';
 		else
-			pffo->lst->data[0] = ' ';
+			pffo->pst->data[0] = ' ';
 	}
 }
 
@@ -42,20 +42,20 @@ void		pf_add_negative_di(t_pffo *pffo)
 	int	i;
 
 	i = 0;
-	if (pffo->lst->data && pf_isupper0(pffo->lst->data[i]))
-		pffo->lst->data = ft_strjoin_f2("-", pffo->lst->data);
+	if (pffo->pst->data && pf_isupper0(pffo->pst->data[i]))
+		pffo->pst->data = ft_strjoin_f2("-", pffo->pst->data);
 	else
 	{
-		while (pffo->lst->data[i] && !(ft_isdigit(pffo->lst->data[i])))
+		while (pffo->pst->data[i] && !(ft_isdigit(pffo->pst->data[i])))
 			i++;
-		if (i > 0 && pffo->lst->data[i] && ft_isdigit(pffo->lst->data[i]))
-			pffo->lst->data[i - 1] = '-';
+		if (i > 0 && pffo->pst->data[i] && ft_isdigit(pffo->pst->data[i]))
+			pffo->pst->data[i - 1] = '-';
 		else
 		{
-			if (pf_nbrlen_str(pffo->lst->data) > pffo->precision)
-				pffo->lst->data[0] = '-';
+			if (pf_nbrlen_str(pffo->pst->data) > pffo->precision)
+				pffo->pst->data[0] = '-';
 			else
-				pffo->lst->data = ft_strjoin_f2("-", pffo->lst->data);
+				pffo->pst->data = ft_strjoin_f2("-", pffo->pst->data);
 		}
 	}
 }
@@ -65,25 +65,25 @@ void		pf_add_positive_diu(t_pffo *pffo)
 	int	i;
 
 	i = 0;
-	if (pffo->lst->data && pf_isupper0(pffo->lst->data[i]))
-		pffo->lst->data = ft_strjoin_f2("+", pffo->lst->data);
-	else if (pffo->lst->data && !(pf_isupper0(pffo->lst->data[i]))
+	if (pffo->pst->data && pf_isupper0(pffo->pst->data[i]))
+		pffo->pst->data = ft_strjoin_f2("+", pffo->pst->data);
+	else if (pffo->pst->data && !(pf_isupper0(pffo->pst->data[i]))
 				&& (pffo->flags && ft_strchr(pffo->flags, '-')))
 	{
-		pffo->lst->data = ft_strjoin_f2("+", pffo->lst->data);
+		pffo->pst->data = ft_strjoin_f2("+", pffo->pst->data);
 	}
 	else
 	{
-		while (pffo->lst->data[i] && !(ft_isdigit(pffo->lst->data[i])))
+		while (pffo->pst->data[i] && !(ft_isdigit(pffo->pst->data[i])))
 			i++;
-		if (i > 0 && pffo->lst->data[i] && ft_isdigit(pffo->lst->data[i]))
-			pffo->lst->data[i - 1] = '+';
+		if (i > 0 && pffo->pst->data[i] && ft_isdigit(pffo->pst->data[i]))
+			pffo->pst->data[i - 1] = '+';
 		else
 		{
-			if (ft_strcmp(pffo->lst->data, "0") == 0)
-				pffo->lst->data = ft_strjoin_f2("+", pffo->lst->data);
+			if (ft_strcmp(pffo->pst->data, "0") == 0)
+				pffo->pst->data = ft_strjoin_f2("+", pffo->pst->data);
 			else
-				pffo->lst->data[0] = '+';
+				pffo->pst->data[0] = '+';
 		}
 	}
 }

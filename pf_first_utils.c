@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 18:02:07 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		pf_epur_fmt(t_pffo *pffo, const char *fmt, int *i)
 		*i += 1;
 	data = ft_strsub(fmt, tmp, *i - tmp);
 	if (ft_strlen(data))
-		pf_put_in_lst(&pffo[0], data);
+		pf_put_in_pst(&pffo[0], data);
 	else
 		ft_memdel((void **)&data);
 }

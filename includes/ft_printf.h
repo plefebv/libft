@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 00:48:33 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:55:24 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct				s_retlist
 	unsigned long long		ret;
 	unsigned long long		mfw_n;
 	struct s_retlist		*next;
-}							t_lst;
+}							t_pst;
 
 typedef struct				s_pffo
 {
@@ -43,8 +43,8 @@ typedef struct				s_pffo
 	int						ret_tmp;
 	int						ret_c;
 	char					sign;
-	t_lst					*lst;
-	t_lst					*lst_first;
+	t_pst					*pst;
+	t_pst					*pst_first;
 }							t_pffo;
 
 char						*pf_itoa_ll(long long n, t_pffo *pffo);
@@ -67,7 +67,7 @@ int							pf_nbrlen_str(char *s);
 
 void						pf_init_strct(t_pffo *pffo);
 void						pf_epur_fmt(t_pffo *pffo, const char *fmt, int *i);
-void						pf_put_in_lst(t_pffo *pffo, char *input);
+void						pf_put_in_pst(t_pffo *pffo, char *input);
 void						pf_parse_arg(const char *fmt, int *i, t_pffo *pffo,\
 		va_list ap);
 void						pf_clean_pffo(t_pffo *pffo);
@@ -106,7 +106,7 @@ void						pf_put_mfw2(t_pffo *pffo);
 void						pf_hex2(void *ap, t_pffo *pffo);
 void						pf_char_minfield(t_pffo *pffo, int left);
 
-t_lst						*pf_create_list(const char *fmt);
-t_lst						*pf_create_link(char *input);
+t_pst						*pf_create_list(const char *fmt);
+t_pst						*pf_create_link(char *input);
 
 #endif

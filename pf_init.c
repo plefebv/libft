@@ -6,25 +6,25 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 19:19:05 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-static void		pf_init_lst(t_pffo *strct)
+static void		pf_init_pst(t_pffo *strct)
 {
-	t_lst	*lst;
+	t_pst	*pst;
 
-	lst = (t_lst *)malloc(sizeof(t_lst));
-	if (lst)
+	pst = (t_pst *)malloc(sizeof(t_pst));
+	if (pst)
 	{
-		lst->data = NULL;
-		lst->ret = 0;
-		lst->mfw_n = 0;
-		lst->next = NULL;
-		strct->lst = lst;
-		strct->lst_first = lst;
+		pst->data = NULL;
+		pst->ret = 0;
+		pst->mfw_n = 0;
+		pst->next = NULL;
+		strct->pst = pst;
+		strct->pst_first = pst;
 	}
 }
 
@@ -43,5 +43,5 @@ void			pf_init_strct(t_pffo *strct)
 	strct->ret_tmp = 0;
 	strct->ret_c = 0;
 	strct->sign = '+';
-	pf_init_lst(strct);
+	pf_init_pst(strct);
 }

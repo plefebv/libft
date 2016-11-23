@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 12:41:15 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		pf_add_minfield_l(t_pffo *pffo, int add, char c)
 				add--;
 		}
 		pf_add_char(&s, add, c);
-		pffo->lst->data = ft_strjoin_f(pffo->lst->data, s);
+		pffo->pst->data = ft_strjoin_f(pffo->pst->data, s);
 	}
 }
 
@@ -40,7 +40,7 @@ void		pf_add_minfield_r(t_pffo *pffo, int add, char c)
 	{
 		s[add] = '\0';
 		pf_add_char(&s, add, c);
-		pffo->lst->data = ft_strjoin_f(s, pffo->lst->data);
+		pffo->pst->data = ft_strjoin_f(s, pffo->pst->data);
 	}
 }
 
@@ -48,7 +48,7 @@ void		pf_minfield(t_pffo *pffo)
 {
 	int		size;
 
-	size = ft_strlen(pffo->lst->data);
+	size = ft_strlen(pffo->pst->data);
 	if (size < pffo->minfield)
 	{
 		size = pffo->minfield - size;
@@ -56,7 +56,7 @@ void		pf_minfield(t_pffo *pffo)
 					&& pffo->letter != 'p') ||
 					(pffo->letter == 'p' && pffo->flags &&
 					ft_strchr(pffo->flags, '0')
-					&& !(ft_strcmp(pffo->lst->data, "0x0"))))
+					&& !(ft_strcmp(pffo->pst->data, "0x0"))))
 			pf_add_minfield_l(pffo, size, pffo->letter == 'p' ? '0' : ' ');
 		else if (pffo->flags && ft_strchr(pffo->flags, '-')
 					&& pffo->letter == 'p')

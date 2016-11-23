@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/01 12:23:19 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ static void						pf_convert_ws_to_s(wchar_t ap, \
 								int i, t_pffo *pffo)
 {
 	if (ap < 128)
-		pffo->lst->data[i] = ((ap >> 0) & 127) | 0;
+		pffo->pst->data[i] = ((ap >> 0) & 127) | 0;
 	else if (ap < 2048)
 	{
-		pffo->lst->data[i] = ((ap >> 6) & 31) | 192;
-		pffo->lst->data[i + 1] = ((ap >> 0) & 63) | 128;
+		pffo->pst->data[i] = ((ap >> 6) & 31) | 192;
+		pffo->pst->data[i + 1] = ((ap >> 0) & 63) | 128;
 	}
 	else if (ap < 65536)
 	{
-		pffo->lst->data[i] = ((ap >> 12) & 15) | 224;
-		pffo->lst->data[i + 1] = ((ap >> 6) & 63) | 128;
-		pffo->lst->data[i + 2] = ((ap >> 0) & 63) | 128;
+		pffo->pst->data[i] = ((ap >> 12) & 15) | 224;
+		pffo->pst->data[i + 1] = ((ap >> 6) & 63) | 128;
+		pffo->pst->data[i + 2] = ((ap >> 0) & 63) | 128;
 	}
 	else if (ap < 1114112)
 	{
-		pffo->lst->data[i] = ((ap >> 18) & 7) | 240;
-		pffo->lst->data[i + 1] = ((ap >> 12) & 63) | 128;
-		pffo->lst->data[i + 2] = ((ap >> 6) & 63) | 128;
-		pffo->lst->data[i + 3] = ((ap >> 0) & 63) | 128;
+		pffo->pst->data[i] = ((ap >> 18) & 7) | 240;
+		pffo->pst->data[i + 1] = ((ap >> 12) & 63) | 128;
+		pffo->pst->data[i + 2] = ((ap >> 6) & 63) | 128;
+		pffo->pst->data[i + 3] = ((ap >> 0) & 63) | 128;
 	}
 }
 
@@ -84,9 +84,9 @@ void							pf_put_ws(void *ap, t_pffo *pffo)
 	i = 0;
 	q = 0;
 	str = ap;
-	pf_put_in_lst(pffo, ft_strdup(""));
-	free(pffo->lst->data);
-	pffo->lst->data = ft_strnew(pf_size_ws(str));
+	pf_put_in_pst(pffo, ft_strdup(""));
+	free(pffo->pst->data);
+	pffo->pst->data = ft_strnew(pf_size_ws(str));
 	while (str[i] != '\0' && ((pffo->true_precision &&
 					q + pf_size_wc(str[i]) <= pffo->precision)
 					|| !pffo->true_precision))

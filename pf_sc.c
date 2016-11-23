@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 14:02:56 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:16:19 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void				pf_char_minfield(t_pffo *pffo, int left)
 				pf_add_char(&s, pffo->minfield - 1, '0');
 			else
 				pf_add_char(&s, pffo->minfield - 1, ' ');
-			pffo->lst->data = ft_strjoin_f(s, pffo->lst->data);
+			pffo->pst->data = ft_strjoin_f(s, pffo->pst->data);
 		}
 		else
 		{
 			pf_add_char(&s, pffo->minfield - 1, ' ');
-			pffo->lst->data = ft_strjoin_f(pffo->lst->data, s);
+			pffo->pst->data = ft_strjoin_f(pffo->pst->data, s);
 		}
 	}
 }
@@ -50,15 +50,15 @@ static char			*pf_space_string(int size, t_pffo *pffo)
 			str[i++] = '\0';
 			while (i < size + 1)
 				str[i++] = add;
-			pffo->lst->mfw_n = size;
-			pffo->lst->ret = 1;
+			pffo->pst->mfw_n = size;
+			pffo->pst->ret = 1;
 		}
 		else
 		{
 			str[size] = '\0';
 			while (i < size)
 				str[i++] = add;
-			pffo->lst->ret = 1;
+			pffo->pst->ret = 1;
 		}
 	}
 	return (str);
@@ -68,14 +68,14 @@ static void			pf_treat_c(void *ap, t_pffo *pffo)
 {
 	if (pffo->letter == 'c')
 	{
-		pf_put_in_lst(pffo, ft_strdup(""));
+		pf_put_in_pst(pffo, ft_strdup(""));
 		if (pffo->length && ft_strcmp("l", pffo->length) == 0)
 		{
 			if ((wchar_t)ap != 0)
 				pf_put_wc((wchar_t)ap, pffo);
 			if ((wchar_t)ap == 0 && !pffo->minfield)
 			{
-				pffo->lst->ret += 1;
+				pffo->pst->ret += 1;
 			}
 		}
 		else
@@ -83,7 +83,7 @@ static void			pf_treat_c(void *ap, t_pffo *pffo)
 			if ((char)ap != 0)
 				pf_put_char((char)ap, pffo);
 			if ((char)ap == 0 && !pffo->minfield)
-				pffo->lst->ret += 1;
+				pffo->pst->ret += 1;
 		}
 	}
 }
@@ -97,14 +97,14 @@ static void			pf_treat_s(void *ap, t_pffo *pffo)
 			if ((wchar_t *)ap != NULL)
 				pf_put_ws(ap, pffo);
 			else
-				pf_put_in_lst(pffo, ft_strdup("(null)"));
+				pf_put_in_pst(pffo, ft_strdup("(null)"));
 		}
 		else
 		{
 			if ((char *)ap != NULL)
-				pf_put_in_lst(pffo, ft_strdup((char *)ap));
+				pf_put_in_pst(pffo, ft_strdup((char *)ap));
 			else
-				pf_put_in_lst(pffo, ft_strdup("(null)"));
+				pf_put_in_pst(pffo, ft_strdup("(null)"));
 		}
 		pf_precision_s(pffo);
 		pf_minfield(pffo);
@@ -119,8 +119,8 @@ void				pf_sc(void *ap, t_pffo *pffo)
 		pf_treat_data(pffo);
 	else if (pffo->letter == 'c' && (char)ap == 0 && pffo->minfield > 0)
 	{
-		pf_put_in_lst(pffo, ft_strdup(""));
-		free(pffo->lst->data);
-		pffo->lst->data = pf_space_string(pffo->minfield - 1, pffo);
+		pf_put_in_pst(pffo, ft_strdup(""));
+		free(pffo->pst->data);
+		pffo->pst->data = pf_space_string(pffo->minfield - 1, pffo);
 	}
 }
