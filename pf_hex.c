@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 14:16:04 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:51:30 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ static int			pf_hex_len(unsigned long long n)
 	return (i);
 }
 
-static char			pf_get_hex(t_info *info, unsigned long long n)
+static char			pf_get_hex(t_pffo *pffo, unsigned long long n)
 {
 	unsigned long long	i;
 
 	i = n & 15;
 	if (i < 10)
 		return (48 + i);
-	else if (info->letter == 'X')
+	else if (pffo->letter == 'X')
 		return (55 + i);
-	else if (info->letter == 'x' || info->letter == 'p')
+	else if (pffo->letter == 'x' || pffo->letter == 'p')
 		return (87 + i);
 	else
 		return (0);
 }
 
-static char			*pf_itoa_hex(unsigned long long n, t_info *info)
+static char			*pf_itoa_hex(unsigned long long n, t_pffo *pffo)
 {
 	char		*str;
 	long long	i;
@@ -55,7 +55,7 @@ static char			*pf_itoa_hex(unsigned long long n, t_info *info)
 			str[0] = '0';
 		while (n > 0)
 		{
-			str[i--] = pf_get_hex(info, n);
+			str[i--] = pf_get_hex(pffo, n);
 			n >>= 4;
 		}
 		return (str);
@@ -63,43 +63,43 @@ static char			*pf_itoa_hex(unsigned long long n, t_info *info)
 	return (NULL);
 }
 
-static void			pf_hex_length(void *ap, t_info *info)
+static void			pf_hex_length(void *ap, t_pffo *pffo)
 {
-	if (ft_strcmp("hh", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((unsigned char)ap, info));
-	if (ft_strcmp("h", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((unsigned short)ap, info));
-	if (ft_strcmp("l", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((unsigned long)ap, info));
-	if (ft_strcmp("ll", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((unsigned long long)ap, info));
-	if (ft_strcmp("j", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((uintmax_t)ap, info));
-	if (ft_strcmp("z", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_hex((size_t)ap, info));
+	if (ft_strcmp("hh", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((unsigned char)ap, pffo));
+	if (ft_strcmp("h", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((unsigned short)ap, pffo));
+	if (ft_strcmp("l", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((unsigned long)ap, pffo));
+	if (ft_strcmp("ll", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((unsigned long long)ap, pffo));
+	if (ft_strcmp("j", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((uintmax_t)ap, pffo));
+	if (ft_strcmp("z", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_hex((size_t)ap, pffo));
 }
 
-void				pf_hex(void *ap, t_info *info)
+void				pf_hex(void *ap, t_pffo *pffo)
 {
 	int		i;
 
 	i = 2;
-	if (info->letter == 'p')
-		info->length = ft_strdup("j");
-	info->length ? pf_hex_length(ap, info) :
-		pf_put_in_lst(info, pf_itoa_hex((unsigned)ap, info));
-	pf_hex2(ap, info);
-	if (info->flags && ft_strchr(info->flags, '#') && info->lst->data
-				&& ft_strlen(info->lst->data) > 1 && info->lst->data[0] != ' ')
+	if (pffo->letter == 'p')
+		pffo->length = ft_strdup("j");
+	pffo->length ? pf_hex_length(ap, pffo) :
+		pf_put_in_lst(pffo, pf_itoa_hex((unsigned)ap, pffo));
+	pf_hex2(ap, pffo);
+	if (pffo->flags && ft_strchr(pffo->flags, '#') && pffo->lst->data
+				&& ft_strlen(pffo->lst->data) > 1 && pffo->lst->data[0] != ' ')
 	{
-		info->lst->data[1] = info->letter == 'X' ? 'X' : 'x';
-		while (info->lst->data[i] != '\0'
-				&& info->lst->data[i] != (info->letter == 'X' ? 'X' : 'x'))
+		pffo->lst->data[1] = pffo->letter == 'X' ? 'X' : 'x';
+		while (pffo->lst->data[i] != '\0'
+				&& pffo->lst->data[i] != (pffo->letter == 'X' ? 'X' : 'x'))
 			i++;
-		if (info->lst->data[i] == 'X' || info->lst->data[i] == 'x')
-			info->lst->data[i] = '0';
+		if (pffo->lst->data[i] == 'X' || pffo->lst->data[i] == 'x')
+			pffo->lst->data[i] = '0';
 	}
-	if (info->true_precision && !info->precision && info->minfield == 0
-			&& (unsigned)ap == 0 && info->letter != 'p')
-		info->lst->data[0] = '\0';
+	if (pffo->true_precision && !pffo->precision && pffo->minfield == 0
+			&& (unsigned)ap == 0 && pffo->letter != 'p')
+		pffo->lst->data[0] = '\0';
 }

@@ -6,7 +6,7 @@
 #    By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 10:45:45 by plefebvr          #+#    #+#              #
-#    Updated: 2016/10/01 18:57:20 by plefebvr         ###   ########.fr        #
+#    Updated: 2016/10/04 17:05:36 by plefebvr         ###   ########.fr        #
 # **************************************************************************** #
 
 NAME = libft.a
@@ -127,7 +127,7 @@ $(NAME) :
 	@/usr/bin/ar rc $(NAME) $(OBJ)
 	@/usr/bin/ranlib $(NAME)
 	@$(CYN)
-	@echo " === Start Libft Compilation ==="
+	@echo " === Libft Compilation Done  ==="
 	@$(RESET)
 
 clean:

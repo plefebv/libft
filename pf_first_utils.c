@@ -6,47 +6,47 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 18:02:07 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:51:06 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-void		pf_stars(int value, t_info *info, int *i, const char *fmt)
+void		pf_stars(int value, t_pffo *pffo, int *i, const char *fmt)
 {
-	if (info->star_minfield)
+	if (pffo->star_minfield)
 	{
-		info->minfield = value;
-		(info->star_minfield)--;
-		(info->stars)--;
+		pffo->minfield = value;
+		(pffo->star_minfield)--;
+		(pffo->stars)--;
 	}
-	else if (info->star_precision)
+	else if (pffo->star_precision)
 	{
-		info->precision = value;
-		(info->star_precision)--;
-		(info->stars)--;
+		pffo->precision = value;
+		(pffo->star_precision)--;
+		(pffo->stars)--;
 	}
 	while (ft_isdigit(fmt[*i]))
 		(*i)++;
 }
 
-void		pf_clean_info(t_info *info)
+void		pf_clean_pffo(t_pffo *pffo)
 {
-	if (info->flags)
-		ft_memdel((void **)&info->flags);
-	info->minfield = 0;
-	info->star_minfield = 0;
-	info->true_precision = 0;
-	info->precision = 0;
-	info->star_precision = 0;
-	if (info->length)
-		ft_memdel((void **)&info->length);
-	info->letter = '?';
-	info->stars = 0;
-	info->sign = '+';
+	if (pffo->flags)
+		ft_memdel((void **)&pffo->flags);
+	pffo->minfield = 0;
+	pffo->star_minfield = 0;
+	pffo->true_precision = 0;
+	pffo->precision = 0;
+	pffo->star_precision = 0;
+	if (pffo->length)
+		ft_memdel((void **)&pffo->length);
+	pffo->letter = '?';
+	pffo->stars = 0;
+	pffo->sign = '+';
 }
 
-void		pf_epur_fmt(t_info *info, const char *fmt, int *i)
+void		pf_epur_fmt(t_pffo *pffo, const char *fmt, int *i)
 {
 	int		tmp;
 	char	*data;
@@ -57,14 +57,14 @@ void		pf_epur_fmt(t_info *info, const char *fmt, int *i)
 		*i += 1;
 	data = ft_strsub(fmt, tmp, *i - tmp);
 	if (ft_strlen(data))
-		pf_put_in_lst(&info[0], data);
+		pf_put_in_lst(&pffo[0], data);
 	else
 		ft_memdel((void **)&data);
 }
 
-int			pf_dio(t_info *info)
+int			pf_dio(t_pffo *pffo)
 {
-	if (info->letter == 'd' || info->letter == 'i')
+	if (pffo->letter == 'd' || pffo->letter == 'i')
 		return (1);
 	return (0);
 }

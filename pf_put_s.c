@@ -6,33 +6,34 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/01 12:23:19 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:55:05 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-static void						pf_convert_ws_to_s(wchar_t ap, int i, t_info *info)
+static void						pf_convert_ws_to_s(wchar_t ap, \
+								int i, t_pffo *pffo)
 {
 	if (ap < 128)
-		info->lst->data[i] = ((ap >> 0) & 127) | 0;
+		pffo->lst->data[i] = ((ap >> 0) & 127) | 0;
 	else if (ap < 2048)
 	{
-		info->lst->data[i] = ((ap >> 6) & 31) | 192;
-		info->lst->data[i + 1] = ((ap >> 0) & 63) | 128;
+		pffo->lst->data[i] = ((ap >> 6) & 31) | 192;
+		pffo->lst->data[i + 1] = ((ap >> 0) & 63) | 128;
 	}
 	else if (ap < 65536)
 	{
-		info->lst->data[i] = ((ap >> 12) & 15) | 224;
-		info->lst->data[i + 1] = ((ap >> 6) & 63) | 128;
-		info->lst->data[i + 2] = ((ap >> 0) & 63) | 128;
+		pffo->lst->data[i] = ((ap >> 12) & 15) | 224;
+		pffo->lst->data[i + 1] = ((ap >> 6) & 63) | 128;
+		pffo->lst->data[i + 2] = ((ap >> 0) & 63) | 128;
 	}
 	else if (ap < 1114112)
 	{
-		info->lst->data[i] = ((ap >> 18) & 7) | 240;
-		info->lst->data[i + 1] = ((ap >> 12) & 63) | 128;
-		info->lst->data[i + 2] = ((ap >> 6) & 63) | 128;
-		info->lst->data[i + 3] = ((ap >> 0) & 63) | 128;
+		pffo->lst->data[i] = ((ap >> 18) & 7) | 240;
+		pffo->lst->data[i + 1] = ((ap >> 12) & 63) | 128;
+		pffo->lst->data[i + 2] = ((ap >> 6) & 63) | 128;
+		pffo->lst->data[i + 3] = ((ap >> 0) & 63) | 128;
 	}
 }
 
@@ -74,7 +75,7 @@ static int						pf_size_wc(wchar_t ap)
 	return (ret);
 }
 
-void							pf_put_ws(void *ap, t_info *info)
+void							pf_put_ws(void *ap, t_pffo *pffo)
 {
 	int		i;
 	int		q;
@@ -83,14 +84,14 @@ void							pf_put_ws(void *ap, t_info *info)
 	i = 0;
 	q = 0;
 	str = ap;
-	pf_put_in_lst(info, ft_strdup(""));
-	free(info->lst->data);
-	info->lst->data = ft_strnew(pf_size_ws(str));
-	while (str[i] != '\0' && ((info->true_precision &&
-					q + pf_size_wc(str[i]) <= info->precision)
-					|| !info->true_precision))
+	pf_put_in_lst(pffo, ft_strdup(""));
+	free(pffo->lst->data);
+	pffo->lst->data = ft_strnew(pf_size_ws(str));
+	while (str[i] != '\0' && ((pffo->true_precision &&
+					q + pf_size_wc(str[i]) <= pffo->precision)
+					|| !pffo->true_precision))
 	{
-		pf_convert_ws_to_s(str[i], q, info);
+		pf_convert_ws_to_s(str[i], q, pffo);
 		q += pf_size_wc(str[i++]);
 	}
 }

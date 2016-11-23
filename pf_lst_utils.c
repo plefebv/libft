@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 12:40:04 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:52:35 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,68 +27,68 @@ t_lst		*pf_create_link(char *input)
 	return (ret);
 }
 
-void		pf_put_in_lst(t_info *info, char *input)
+void		pf_put_in_lst(t_pffo *pffo, char *input)
 {
-	if (info->lst_first->data == NULL)
+	if (pffo->lst_first->data == NULL)
 	{
-		info->lst->data = ft_strdup_f(input);
-		info->lst_first = info->lst;
+		pffo->lst->data = ft_strdup_f(input);
+		pffo->lst_first = pffo->lst;
 	}
 	else
 	{
-		while (info->lst->next)
-			info->lst = info->lst->next;
-		info->lst->next = pf_create_link(input);
-		info->lst = info->lst->next;
+		while (pffo->lst->next)
+			pffo->lst = pffo->lst->next;
+		pffo->lst->next = pf_create_link(input);
+		pffo->lst = pffo->lst->next;
 	}
 }
 
-static void	join_process(t_info *info, char **str, unsigned long long *miaou)
+static void	join_process(t_pffo *pffo, char **str, unsigned long long *miaou)
 {
 	t_lst		*tmp;
 	int			i;
 
 	i = 0;
 	tmp = NULL;
-	while (info->lst)
+	while (pffo->lst)
 	{
 		if (*str == NULL)
-			*str = pf_strsub_spe(info, info->lst->ret, 0);
-		else if (!(!info->lst->data || (!ft_strlen(info->lst->data) \
-						&& !info->lst->mfw_n)) || info->lst->ret)
+			*str = pf_strsub_spe(pffo, pffo->lst->ret, 0);
+		else if (!(!pffo->lst->data || (!ft_strlen(pffo->lst->data) \
+						&& !pffo->lst->mfw_n)) || pffo->lst->ret)
 		{
-			miaou[0] = info->ret;
-			*str = pf_strjoin_spe(*str, info, i, 0);
-			miaou[0] == info->ret ? *miaou = info->ret : free(info->lst->data);
+			miaou[0] = pffo->ret;
+			*str = pf_strjoin_spe(*str, pffo, i, 0);
+			miaou[0] == pffo->ret ? *miaou = pffo->ret : free(pffo->lst->data);
 		}
-		i = info->lst->ret;
-		tmp = info->lst;
-		info->lst = info->lst->next;
+		i = pffo->lst->ret;
+		tmp = pffo->lst;
+		pffo->lst = pffo->lst->next;
 		ft_memdel((void **)&tmp);
 	}
 }
 
-int			pf_print_list(t_info *info)
+int			pf_print_list(t_pffo *pffo)
 {
 	unsigned long long		miaou;
 	char					*str;
 
 	miaou = 0;
-	info->lst = info->lst_first;
+	pffo->lst = pffo->lst_first;
 	str = NULL;
-	if (!info->lst->data)
+	if (!pffo->lst->data)
 		return (0);
-	else if (!info->lst_first)
+	else if (!pffo->lst_first)
 	{
 		ft_putstr("0\n");
 		return (0);
 	}
-	join_process(info, &str, &miaou);
-	ft_memdel((void **)&info->lst);
-	miaou = info->ret;
-	if (info->ret > 0)
-		write(1, str, info->ret);
+	join_process(pffo, &str, &miaou);
+	ft_memdel((void **)&pffo->lst);
+	miaou = pffo->ret;
+	if (pffo->ret > 0)
+		write(1, str, pffo->ret);
 	ft_memdel((void **)&str);
-	ft_memdel((void **)&info[0]);
+	ft_memdel((void **)&pffo[0]);
 	return (miaou);
 }

@@ -6,13 +6,13 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 15:53:50 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:53:26 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-char	*pf_strjoin_c_null(char *s1, t_info *info, unsigned long long mfw)
+char	*pf_strjoin_c_null(char *s1, t_pffo *pffo, unsigned long long mfw)
 {
 	char					*s3;
 	unsigned long long		len;
@@ -22,16 +22,16 @@ char	*pf_strjoin_c_null(char *s1, t_info *info, unsigned long long mfw)
 
 	i = -1;
 	j = 0;
-	tmp = ft_strlen(info->lst->data);
-	info->ret += tmp;
-	len = info->ret + mfw + 1;
+	tmp = ft_strlen(pffo->lst->data);
+	pffo->ret += tmp;
+	len = pffo->ret + mfw + 1;
 	s3 = (char *)malloc(sizeof(*s3) * (len + 300 + 1));
 	if (s3)
 	{
-		while (s1 && ++i < info->ret - tmp)
+		while (s1 && ++i < pffo->ret - tmp)
 			s3[i] = s1[i];
-		while (s1 && i < info->ret + mfw + 1)
-			s3[i++] = info->lst->data[j++];
+		while (s1 && i < pffo->ret + mfw + 1)
+			s3[i++] = pffo->lst->data[j++];
 		s3[i] = '\0';
 		return (s3);
 	}

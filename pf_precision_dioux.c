@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/23 16:40:25 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:54:20 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		pf_add_char(char **s, int add, char c)
 		s[0][i++] = c;
 }
 
-void		pf_add_precision_dioux(t_info *info, int add)
+void		pf_add_precision_dioux(t_pffo *pffo, int add)
 {
 	char	*s;
 
@@ -30,60 +30,60 @@ void		pf_add_precision_dioux(t_info *info, int add)
 	{
 		s[add] = '\0';
 		pf_add_char(&s, add, '0');
-		info->lst->data = ft_strjoin_f(s, info->lst->data);
+		pffo->lst->data = ft_strjoin_f(s, pffo->lst->data);
 	}
 }
 
-void		pf_precision_dioux(void *ap, t_info *info)
+void		pf_precision_dioux(void *ap, t_pffo *pffo)
 {
 	int		size;
 	int		i;
 
 	i = 0;
-	size = ft_strlen(info->lst->data);
-	if (size < info->precision)
-		pf_add_precision_dioux(info, info->precision - size);
-	if (!info->precision && (int)ap == 0)
+	size = ft_strlen(pffo->lst->data);
+	if (size < pffo->precision)
+		pf_add_precision_dioux(pffo, pffo->precision - size);
+	if (!pffo->precision && (int)ap == 0)
 	{
-		while (info->lst->data && info->lst->data[i] != '\0')
+		while (pffo->lst->data && pffo->lst->data[i] != '\0')
 		{
-			if (info->lst->data[i] == '0')
+			if (pffo->lst->data[i] == '0')
 			{
-				if (info->minfield > 0)
-					info->lst->data[i] = ' ';
+				if (pffo->minfield > 0)
+					pffo->lst->data[i] = ' ';
 				else
-					info->lst->data[i] = '\0';
+					pffo->lst->data[i] = '\0';
 			}
 			i++;
 		}
 	}
 }
 
-void		pf_precision_p(void *ap, t_info *info)
+void		pf_precision_p(void *ap, t_pffo *pffo)
 {
 	int		size;
 	int		i;
 
 	i = -1;
-	size = ft_strlen(info->lst->data);
-	if (size < info->precision + 2)
-		pf_add_precision_dioux(info, info->precision - size + 2);
-	if (!info->precision && (int)ap == 0)
+	size = ft_strlen(pffo->lst->data);
+	if (size < pffo->precision + 2)
+		pf_add_precision_dioux(pffo, pffo->precision - size + 2);
+	if (!pffo->precision && (int)ap == 0)
 	{
-		while (info->lst->data && info->lst->data[++i] != '\0')
+		while (pffo->lst->data && pffo->lst->data[++i] != '\0')
 		{
-			if (info->lst->data[i] == '0')
+			if (pffo->lst->data[i] == '0')
 			{
-				if (info->minfield > 0)
-					info->lst->data[i] = ' ';
+				if (pffo->minfield > 0)
+					pffo->lst->data[i] = ' ';
 				else
-					info->lst->data[i] = '\0';
+					pffo->lst->data[i] = '\0';
 			}
 		}
 	}
 	i = 1;
-	info->lst->data[1] = 'x';
-	while (info->lst->data[++i])
-		if (info->lst->data[i] == 'x')
-			info->lst->data[i] = '0';
+	pffo->lst->data[1] = 'x';
+	while (pffo->lst->data[++i])
+		if (pffo->lst->data[i] == 'x')
+			pffo->lst->data[i] = '0';
 }

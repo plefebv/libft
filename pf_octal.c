@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 16:12:34 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:53:40 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,41 +48,41 @@ static char		*pf_itoa_octal(unsigned long long n)
 	return (NULL);
 }
 
-static void		pf_octal_length(void *ap, t_info *info)
+static void		pf_octal_length(void *ap, t_pffo *pffo)
 {
-	if (ft_strcmp("hh", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((unsigned char)ap));
-	if (ft_strcmp("h", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((unsigned short)ap));
-	if (ft_strcmp("l", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((unsigned long)ap));
-	if (ft_strcmp("ll", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((unsigned long long)ap));
-	if (ft_strcmp("j", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((uintmax_t)ap));
-	if (ft_strcmp("z", info->length) == 0)
-		pf_put_in_lst(info, pf_itoa_octal((size_t)ap));
+	if (ft_strcmp("hh", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((unsigned char)ap));
+	if (ft_strcmp("h", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((unsigned short)ap));
+	if (ft_strcmp("l", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((unsigned long)ap));
+	if (ft_strcmp("ll", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((unsigned long long)ap));
+	if (ft_strcmp("j", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((uintmax_t)ap));
+	if (ft_strcmp("z", pffo->length) == 0)
+		pf_put_in_lst(pffo, pf_itoa_octal((size_t)ap));
 }
 
-void			pf_octal(void *ap, t_info *info)
+void			pf_octal(void *ap, t_pffo *pffo)
 {
 	int		i;
 
 	i = 0;
-	info->length ? pf_octal_length(ap, info) :
-		pf_put_in_lst(info, pf_itoa_octal((unsigned)ap));
-	if (info->flags && ft_strchr(info->flags, '#') && info->lst->data[0] != '0')
-		info->lst->data = ft_strjoin_f2("0", info->lst->data);
-	if (info->true_precision && info->precision && (int)ap != 0)
-		pf_precision_dioux(ap, info);
-	if (info->true_precision && !info->precision && (int)ap == 0)
+	pffo->length ? pf_octal_length(ap, pffo) :
+		pf_put_in_lst(pffo, pf_itoa_octal((unsigned)ap));
+	if (pffo->flags && ft_strchr(pffo->flags, '#') && pffo->lst->data[0] != '0')
+		pffo->lst->data = ft_strjoin_f2("0", pffo->lst->data);
+	if (pffo->true_precision && pffo->precision && (int)ap != 0)
+		pf_precision_dioux(ap, pffo);
+	if (pffo->true_precision && !pffo->precision && (int)ap == 0)
 	{
-		free(info->lst->data);
-		if (info->flags && ft_strchr(info->flags, '#'))
-			info->lst->data = ft_strdup("0");
+		free(pffo->lst->data);
+		if (pffo->flags && ft_strchr(pffo->flags, '#'))
+			pffo->lst->data = ft_strdup("0");
 		else
-			info->lst->data = ft_strdup("");
+			pffo->lst->data = ft_strdup("");
 	}
-	if (info->minfield > 0)
-		pf_minfield(info);
+	if (pffo->minfield > 0)
+		pf_minfield(pffo);
 }

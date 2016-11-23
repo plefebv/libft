@@ -6,13 +6,13 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 12:41:15 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:52:51 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-void		pf_add_minfield_l(t_info *info, int add, char c)
+void		pf_add_minfield_l(t_pffo *pffo, int add, char c)
 {
 	char	*s;
 
@@ -20,18 +20,18 @@ void		pf_add_minfield_l(t_info *info, int add, char c)
 	if (s)
 	{
 		s[add] = '\0';
-		if (info->letter != 'u')
+		if (pffo->letter != 'u')
 		{
-			if (info->sign == '-' || (info->flags && info->sign == '+' &&
-				(ft_strchr(info->flags, ' ') || ft_strchr(info->flags, '+'))))
+			if (pffo->sign == '-' || (pffo->flags && pffo->sign == '+' &&
+				(ft_strchr(pffo->flags, ' ') || ft_strchr(pffo->flags, '+'))))
 				add--;
 		}
 		pf_add_char(&s, add, c);
-		info->lst->data = ft_strjoin_f(info->lst->data, s);
+		pffo->lst->data = ft_strjoin_f(pffo->lst->data, s);
 	}
 }
 
-void		pf_add_minfield_r(t_info *info, int add, char c)
+void		pf_add_minfield_r(t_pffo *pffo, int add, char c)
 {
 	char	*s;
 
@@ -40,33 +40,33 @@ void		pf_add_minfield_r(t_info *info, int add, char c)
 	{
 		s[add] = '\0';
 		pf_add_char(&s, add, c);
-		info->lst->data = ft_strjoin_f(s, info->lst->data);
+		pffo->lst->data = ft_strjoin_f(s, pffo->lst->data);
 	}
 }
 
-void		pf_minfield(t_info *info)
+void		pf_minfield(t_pffo *pffo)
 {
 	int		size;
 
-	size = ft_strlen(info->lst->data);
-	if (size < info->minfield)
+	size = ft_strlen(pffo->lst->data);
+	if (size < pffo->minfield)
 	{
-		size = info->minfield - size;
-		if ((info->flags && ft_strchr(info->flags, '-')
-					&& info->letter != 'p') ||
-					(info->letter == 'p' && info->flags &&
-					ft_strchr(info->flags, '0')
-					&& !(ft_strcmp(info->lst->data, "0x0"))))
-			pf_add_minfield_l(info, size, info->letter == 'p' ? '0' : ' ');
-		else if (info->flags && ft_strchr(info->flags, '-')
-					&& info->letter == 'p')
-			pf_add_minfield_l(info, size, ' ');
-		else if (info->flags && ft_strchr(info->flags, '0') &&
-					(((!info->true_precision || info->precision < 0)
-					&& info->letter != 's')
-					|| (info->letter == 'c' || info->letter == 's')))
-			pf_add_minfield_r(info, size, '0');
+		size = pffo->minfield - size;
+		if ((pffo->flags && ft_strchr(pffo->flags, '-')
+					&& pffo->letter != 'p') ||
+					(pffo->letter == 'p' && pffo->flags &&
+					ft_strchr(pffo->flags, '0')
+					&& !(ft_strcmp(pffo->lst->data, "0x0"))))
+			pf_add_minfield_l(pffo, size, pffo->letter == 'p' ? '0' : ' ');
+		else if (pffo->flags && ft_strchr(pffo->flags, '-')
+					&& pffo->letter == 'p')
+			pf_add_minfield_l(pffo, size, ' ');
+		else if (pffo->flags && ft_strchr(pffo->flags, '0') &&
+					(((!pffo->true_precision || pffo->precision < 0)
+					&& pffo->letter != 's')
+					|| (pffo->letter == 'c' || pffo->letter == 's')))
+			pf_add_minfield_r(pffo, size, '0');
 		else
-			pf_add_minfield_r(info, size, ' ');
+			pf_add_minfield_r(pffo, size, ' ');
 	}
 }

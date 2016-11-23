@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 15:58:08 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/03/21 20:44:02 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 16:10:50 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char			**ft_strsplit(char const *str, char c)
 			while (str[i] != c && str[i] != '\0')
 				i++;
 		}
-		strback[word] = (char *)malloc(sizeof(char) * 1);
 		strback[word] = NULL;
 		return (strback);
 	}

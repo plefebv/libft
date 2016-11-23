@@ -6,20 +6,20 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/04 19:57:48 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:50:52 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-void		pf_dioux(void *ap, t_info *info)
+void		pf_dioux(void *ap, t_pffo *pffo)
 {
-	if (info->letter == 'd' || info->letter == 'i')
-		pf_di(ap, info);
-	else if (info->letter == 'u')
-		pf_u(ap, info);
-	else if (info->letter == 'x' || info->letter == 'X' || info->letter == 'p')
-		pf_hex(ap, info);
-	else if (info->letter == 'o')
-		pf_octal(ap, info);
+	if (pffo->letter == 'd' || pffo->letter == 'i')
+		pf_di(ap, pffo);
+	else if (pffo->letter == 'u')
+		pf_u(ap, pffo);
+	else if (pffo->letter == 'x' || pffo->letter == 'X' || pffo->letter == 'p')
+		pf_hex(ap, pffo);
+	else if (pffo->letter == 'o')
+		pf_octal(ap, pffo);
 }

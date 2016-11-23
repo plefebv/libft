@@ -6,7 +6,7 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 13:26:56 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:52:24 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static long long		pf_nlen_u(unsigned long long n)
 	return (i);
 }
 
-char					*pf_itoa_ll(long long n, t_info *info)
+char					*pf_itoa_ll(long long n, t_pffo *pffo)
 {
 	char				*str;
 	long long			i;
@@ -50,7 +50,7 @@ char					*pf_itoa_ll(long long n, t_info *info)
 
 	i = n >= 0 ? pf_nlen(n) : pf_nlen(-n);
 	str = NULL;
-	info->sign = n < 0 ? '-' : '+';
+	pffo->sign = n < 0 ? '-' : '+';
 	j = n >= 0 ? n : -n;
 	if (n >= 9223372036854775807)
 		return (ft_strdup("9223372036854775807"));

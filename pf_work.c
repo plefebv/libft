@@ -6,69 +6,69 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/04 19:14:13 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:58:43 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:01 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-void				pf_work(void *ap, t_info *info)
+void				pf_work(void *ap, t_pffo *pffo)
 {
 	char *s;
 
 	s = NULL;
-	if (info->letter == 'd' || info->letter == 'i' || info->letter == 'o'
-			|| info->letter == 'u' || info->letter == 'x'
-			|| info->letter == 'X' || info->letter == 'p')
-		pf_dioux(ap, info);
-	else if (info->letter == 'c' || info->letter == 's')
-		pf_sc(ap, info);
-	else if (info->letter == '%' && (info->minfield))
-		pf_treat_data(info);
-	else if (info->letter != '?')
+	if (pffo->letter == 'd' || pffo->letter == 'i' || pffo->letter == 'o'
+			|| pffo->letter == 'u' || pffo->letter == 'x'
+			|| pffo->letter == 'X' || pffo->letter == 'p')
+		pf_dioux(ap, pffo);
+	else if (pffo->letter == 'c' || pffo->letter == 's')
+		pf_sc(ap, pffo);
+	else if (pffo->letter == '%' && (pffo->minfield))
+		pf_treat_data(pffo);
+	else if (pffo->letter != '?')
 	{
 		s = ft_strnew(1);
-		s[0] = info->letter;
-		pf_put_in_lst(info, s);
-		pf_treat_data(info);
+		s[0] = pffo->letter;
+		pf_put_in_lst(pffo, s);
+		pf_treat_data(pffo);
 	}
 }
 
-void				pf_treat_data(t_info *info)
+void				pf_treat_data(t_pffo *pffo)
 {
-	if (info->minfield > 0 &&
-			!(info->letter == 'd' || info->letter == 'i' || info->letter == 'o'
-			|| info->letter == 'u' || info->letter == 'X' || info->letter == 'x'
-			|| info->letter == 's'))
+	if (pffo->minfield > 0 &&
+			!(pffo->letter == 'd' || pffo->letter == 'i' || pffo->letter == 'o'
+			|| pffo->letter == 'u' || pffo->letter == 'X' || pffo->letter == 'x'
+			|| pffo->letter == 's'))
 	{
-		pf_char_minfield(info, (info->flags &&
-					ft_strchr(info->flags, '-')) ? 1 : 0);
-		if (info->letter == '%')
+		pf_char_minfield(pffo, (pffo->flags &&
+					ft_strchr(pffo->flags, '-')) ? 1 : 0);
+		if (pffo->letter == '%')
 		{
-			if (info->flags && ft_strchr(info->flags, '-'))
-				info->lst->data = ft_strjoin_f2("%", info->lst->data);
+			if (pffo->flags && ft_strchr(pffo->flags, '-'))
+				pffo->lst->data = ft_strjoin_f2("%", pffo->lst->data);
 			else
-				info->lst->data = ft_strjoin_f1(info->lst->data, "%");
+				pffo->lst->data = ft_strjoin_f1(pffo->lst->data, "%");
 		}
 	}
 }
 
-void				pf_hex2(void *ap, t_info *info)
+void				pf_hex2(void *ap, t_pffo *pffo)
 {
-	if ((info->flags && ft_strchr(info->flags, '#') &&
-				((info->lst->data[0] != '0' &&
-				info->letter != 'p'))) || info->letter == 'p')
-		info->lst->data = (info->letter == 'x' || info->letter == 'p' ?
-				ft_strjoin_f2("0x", info->lst->data) :
-				ft_strjoin_f2("0X", info->lst->data));
-	if (info->true_precision && !(info->flags && ft_strchr(info->flags, '#')))
-		pf_precision_dioux(ap, info);
-	if (info->true_precision && (info->letter == 'p' || (info->letter != 'p'
-					&& info->flags && ft_strchr(info->flags, '#'))))
-		pf_precision_p(ap, info);
-	if (info->true_precision && info->letter == 'p'
-			&& !info->precision && (int)ap == 0)
-		info->lst->data = ft_strdup("0x");
-	if (info->minfield > 0)
-		pf_minfield(info);
+	if ((pffo->flags && ft_strchr(pffo->flags, '#') &&
+				((pffo->lst->data[0] != '0' &&
+				pffo->letter != 'p'))) || pffo->letter == 'p')
+		pffo->lst->data = (pffo->letter == 'x' || pffo->letter == 'p' ?
+				ft_strjoin_f2("0x", pffo->lst->data) :
+				ft_strjoin_f2("0X", pffo->lst->data));
+	if (pffo->true_precision && !(pffo->flags && ft_strchr(pffo->flags, '#')))
+		pf_precision_dioux(ap, pffo);
+	if (pffo->true_precision && (pffo->letter == 'p' || (pffo->letter != 'p'
+					&& pffo->flags && ft_strchr(pffo->flags, '#'))))
+		pf_precision_p(ap, pffo);
+	if (pffo->true_precision && pffo->letter == 'p'
+			&& !pffo->precision && (int)ap == 0)
+		pffo->lst->data = ft_strdup("0x");
+	if (pffo->minfield > 0)
+		pf_minfield(pffo);
 }

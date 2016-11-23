@@ -6,13 +6,13 @@
 /*   By: plefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 19:19:05 by plefebvr          #+#    #+#             */
-/*   Updated: 2016/10/01 18:51:51 by plefebvr         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:52:33 by plefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-static void		pf_init_lst(t_info *strct)
+static void		pf_init_lst(t_pffo *strct)
 {
 	t_lst	*lst;
 
@@ -28,7 +28,7 @@ static void		pf_init_lst(t_info *strct)
 	}
 }
 
-void			pf_init_strct(t_info *strct)
+void			pf_init_strct(t_pffo *strct)
 {
 	strct->flags = NULL;
 	strct->minfield = 0;
